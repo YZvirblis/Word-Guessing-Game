@@ -24,7 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/choose" element={<WordChoose />} />
-        <Route path="/draw" element={<DrawingPage />} />
+        <Route path="/draw:word" element={<DrawingPage />} />
         <Route path="/guess" element={<GuessingPage />} />
         <Route path="/wait" element={<WaitingPage />} />
         <Route exact path="/" element={<WelcomePage />} />

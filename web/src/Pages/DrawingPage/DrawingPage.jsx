@@ -1,6 +1,6 @@
 import React from "react";
 
-function DrawingPage() {
+function DrawingPage(match) {
   return (
     <div>
       <h1>DRAWING PAGE</h1>
