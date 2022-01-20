@@ -5,16 +5,13 @@ import GuessingPage from "./Pages/GuessingPage/GuessingPage";
 import WaitingPage from "./Pages/WaitingPage/WaitingPage";
 import WelcomePage from "./Pages/WelcomePage/WelcomePage";
 import WordChoose from "./Pages/WordChoose/WordChoose";
+import "./Style.css";
 
 // import io from "socket.io-client";
-// const randomWords = require("random-words");
 // const socket = io.connect("http://localhost:3001/");
 
 function App() {
   // useEffect(() => {
-  //   console.log("easy: " + randomWords({ exactly: 1, maxLength: 4 })[0]);
-  //   console.log("medium: " + randomWords({ exactly: 1, maxLength: 7 })[0]);
-  //   console.log("hard: " + randomWords({ exactly: 1, maxLength: 12 })[0]);
 
   //   socket.emit("test", "socket is working! sent from: ");
   //   socket.on("test", (data) => {
