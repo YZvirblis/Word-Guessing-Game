@@ -19,13 +19,13 @@ function WordChoose() {
       <h1 className="choose-title">Choose something you can draw:</h1>
       <div className="words-container">
         <Link className="link" to={"/draw:" + easyWord}>
-          <button class="word-button">{easyWord}</button>
+          <button className="word-button">{easyWord}</button>
         </Link>
         <Link className="link" to={"/draw:" + mediumWord}>
-          <button class="word-button">{mediumWord}</button>
+          <button className="word-button">{mediumWord}</button>
         </Link>
         <Link className="link" to={"/draw:" + hardWord}>
-          <button class="word-button">{hardWord}</button>
+          <button className="word-button">{hardWord}</button>
         </Link>
       </div>
     </div>

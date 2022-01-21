@@ -1,14 +1,18 @@
 const app = require("express")();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: { origin: "*" } });
+const { userJoin, getUserByRoom, getAllUsers } = require("./utils/users");
 const PORT = 3001;
 
 io.on("connection", (socket) => {
-  console.log("Socket ID: ", socket.id);
-  socket.on("test", (data) => {
-    socket.emit("test", { data: data, id: socket.id });
+  socket.on("join", (room) => {
+    userJoin(socket.id, room);
+    console.log("ALL USERS: ", getAllUsers());
+    const roomUsers = getUserByRoom(room);
+    if (roomUsers.length >= 2) {
+      socket.emit("joined", true);
+    }
   });
-  // socket.on('connection')
 });
 
 http.listen(PORT, () => {
