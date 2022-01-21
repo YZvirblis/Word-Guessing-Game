@@ -7,11 +7,20 @@ const PORT = 3001;
 io.on("connection", (socket) => {
   socket.on("join", (room) => {
     userJoin(socket.id, room);
-    console.log("ALL USERS: ", getAllUsers());
     const roomUsers = getUserByRoom(room);
     if (roomUsers.length >= 2) {
-      socket.emit("joined", true);
+      console.log("two players joined");
+      io.emit("joined", true);
     }
+  });
+  socket.on("advance", (stage) => {
+    console.log("advancing stage");
+    io.emit("advance", stage);
+  });
+  socket.on("word-choose", (word, stage) => {
+    console.log("CHOSEN WORD: ", word + " " + stage);
+    io.emit("word-choose", word);
+    io.emit("advance", stage);
   });
 });
 

@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .container {
   align-self: center;
   width: 100vw;
@@ -6,6 +10,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(
+    90deg,
+    rgba(44, 51, 56, 1) -50%,
+    rgba(49, 77, 93, 1) 50%,
+    rgba(44, 51, 56, 1) 150%
+  );
+}
+.canvas-container {
+  align-self: center;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(
     90deg,
     rgba(44, 51, 56, 1) -50%,
@@ -43,6 +58,9 @@
   cursor: default;
   margin: 0 2% 5% 2%;
   cursor: pointer;
+  align-self: center;
+  text-align: center;
+  text-decoration: underline;
 }
 .choose-title {
   font-size: 5vw;
@@ -51,6 +69,15 @@
   color: #c5e0f8;
   cursor: default;
   margin-bottom: 10%;
+}
+.draw-title {
+  align-self: center;
+  text-align: center;
+  font-size: 5vw;
+  margin: 0;
+  padding: 0;
+  color: #c5e0f8;
+  cursor: default;
 }
 .button {
   width: 80vw;
@@ -104,4 +131,8 @@
 .word-button:active {
   transition: 250ms;
   background-color: #5f6c78;
+}
+
+.canvas {
+  cursor: crosshair;
 }
