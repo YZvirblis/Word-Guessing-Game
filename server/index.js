@@ -5,9 +5,9 @@ const { userJoin, getUserByRoom, getAllUsers } = require("./utils/users");
 const PORT = 3001;
 
 io.on("connection", (socket) => {
-  socket.on("join", () => {
+  socket.on("join", (room) => {
     console.log("JOIN");
-    userJoin(socket.id);
+    userJoin(socket.id, room);
     const allUsers = getAllUsers();
     console.log(allUsers);
     socket.emit("joined", {

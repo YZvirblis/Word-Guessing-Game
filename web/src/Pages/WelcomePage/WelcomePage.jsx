@@ -16,7 +16,7 @@ function WelcomePage(params) {
 
   useEffect(() => {
     socket.emit("connection");
-    socket.emit("join");
+    socket.emit("join", params.room);
     socket.on("joined", (data) => {
       setIsPlayerJoined(data.twoPlayers);
       setPlayer(data.player);
