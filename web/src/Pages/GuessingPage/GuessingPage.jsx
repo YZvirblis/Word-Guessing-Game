@@ -27,7 +27,7 @@ function GuessingPage() {
   return (
     <div className="container">
       <Score />
-      <h1 className="choose-title">Try to guess what your friend draw:</h1>
+      <h1 className="choose-title">Try to guess what this is:</h1>
       <img
         style={{ backgroundColor: "#AFC8DE", width: "75%" }}
         src={url}
