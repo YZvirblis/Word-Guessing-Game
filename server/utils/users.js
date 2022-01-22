@@ -1,15 +1,15 @@
 const users = [];
 
-const userJoin = (id, room) => {
-  const isExisting = getUserById(id) ? true : false;
-  if (isExisting) {
-    return;
-  }
-  const isFull = getUserByRoom(room).length >= 2 ? true : false;
-  if (isFull) {
-    return;
-  }
-  const user = { id, room };
+const userJoin = (id) => {
+  // const isExisting = getUserById(id) ? true : false;
+  // if (isExisting) {
+  //   return;
+  // }
+  // const isFull = getUserByRoom(room).length >= 2 ? true : false;
+  // if (isFull) {
+  //   return;
+  // }
+  const user = id;
   users.push(user);
   return user;
 };

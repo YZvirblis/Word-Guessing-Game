@@ -9,6 +9,7 @@ import stageReducer from "./slices/stage.slice";
 import wordReducer from "./slices/word.slice";
 import blobReducer from "./slices/blob.slice";
 import pointsReducer from "./slices/points.slice";
+import userReducer from "./slices/user.slice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     blob: blobReducer,
     points: pointsReducer,
     stage: stageReducer,
+    user: userReducer,
   },
 });
 

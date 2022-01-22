@@ -7,9 +7,8 @@ export const socket = io.connect("http://localhost:3001/");
 export const SocketContext = React.createContext();
 
 const socketController = {
-  emitChosenWord: (word, stage, difficulty) => {
+  emitChosenWord: (word, difficulty) => {
     socket.emit("word-choose", { value: word, difficulty: difficulty });
-    socket.emit("advance", stage);
   },
   advance: (stage) => {
     socket.emit("advance", stage);
@@ -18,6 +17,7 @@ const socketController = {
     socket.emit("blob", url);
   },
   emitPoints: (points) => {
+    console.log("EMITING POINTS: ", points);
     socket.emit("points", points);
   },
 };

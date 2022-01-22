@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { advance } from "../../slices/stage.slice";
@@ -18,42 +18,30 @@ function WaitingPage() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const room = searchParams.get("room");
+  const [stageState, setStageState] = useState(0);
 
-  if (currentStage === 0) {
-    console.log("CONNECTING");
-    socket.emit("connection");
-    socket.emit("join", room);
-  }
-
-  const navigatePage = useCallback(() => {
+  const navigatePage = () => {
     navigate("/guess", { replace: true });
-  }, [navigate]);
+  };
 
   useEffect(() => {
-    console.log("STAGE: ", currentStage);
     socket.on("advance", (stage) => {
+      if (stage === 3 && currentStage === 2) {
+        dispatch(advance(3));
+        navigatePage();
+        return;
+      }
       dispatch(advance(stage));
-      setTimeout(() => {
-        console.log("advancing stage: ", stage + " " + currentStage);
-      }, 1000);
     });
     socket.on("word-choose", (word) => {
       dispatch(
         setChosenWord({ value: word.value, difficulty: word.difficulty })
       );
     });
-    socket.on("points", (points) => {
-      dispatch(setPoints(points));
-    });
     socket.on("blob", (url) => {
       dispatch(setBlob(url));
-      if (currentStage === 2 || currentStage === 0) {
-        console.log("NAVIGATING FROM WAITING PAGE: ", currentStage);
-        dispatch(advance(3));
-        navigatePage();
-      }
     });
-  }, []);
+  }, [currentStage]);
 
   return (
     <div className="container">

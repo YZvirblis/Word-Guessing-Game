@@ -19,7 +19,6 @@ function DrawingPage() {
   const contextRef = useRef(null);
 
   useEffect(() => {
-    console.log("STAGE: ", stage);
     if (canvasRef.current) {
       contextRef.current = canvasRef.current.getContext("2d");
     }
@@ -71,8 +70,11 @@ function DrawingPage() {
     const blobURL = URL.createObjectURL(blob);
 
     socketController.emitBlobURL(blobURL);
+    socketController.advance(3);
     dispatch(advance(3));
-    navigate("/wait", { replace: true });
+    setTimeout(() => {
+      navigate("/wait", { replace: true });
+    }, 10);
   };
 
   return (

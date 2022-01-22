@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import socketController from "../../utils/SocketIO";
 import { advance } from "../../slices/stage.slice";
 import Score from "../../components/Score";
+import { setPoints } from "../../slices/points.slice";
 
 function GuessingPage() {
   const dispatch = useDispatch();
@@ -13,9 +14,9 @@ function GuessingPage() {
 
   const proceed = () => {
     socketController.advance(1);
-    dispatch(advance(1));
     if (guess === chosenWord.value) {
       socketController.emitPoints(chosenWord.difficulty);
+      // dispatch(setPoints(chosenWord.difficulty));
     }
   };
 

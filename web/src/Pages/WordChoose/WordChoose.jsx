@@ -11,13 +11,11 @@ const randomWords = require("random-words");
 
 function WordChoose() {
   const dispatch = useDispatch();
-  const currentStage = useSelector((state) => state.stage.value);
   const [easyWord, setEasyWord] = useState("");
   const [mediumWord, setMediumWord] = useState("");
   const [hardWord, setHardWord] = useState("");
 
   useEffect(() => {
-    console.log("STAGE: ", currentStage);
     setWords();
   }, []);
 
@@ -31,8 +29,8 @@ function WordChoose() {
 
   const handleChooseWord = (word, difficulty) => {
     dispatch(setChosenWord({ value: word, difficulty: difficulty }));
-    socketController.emitChosenWord(word, 2, difficulty);
-    dispatch(advance(2));
+    socketController.emitChosenWord(word, difficulty);
+    socketController.advance(2);
   };
 
   return (

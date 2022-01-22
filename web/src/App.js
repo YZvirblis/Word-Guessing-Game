@@ -8,15 +8,17 @@ import WordChoose from "./Pages/WordChoose/WordChoose";
 import "./Style.css";
 import { v4 } from "uuid";
 import { SocketContext, socket } from "./utils/SocketIO";
+import Listener from "./components/Listener";
 
 function App() {
   const room = v4();
   return (
     <SocketContext.Provider value={socket}>
       <div>
+        <Listener />
         <Router>
           <Routes>
-            <Route path={`/choose`} element={<WordChoose />} />
+            <Route path="/choose" element={<WordChoose />} />
             <Route path="/draw" element={<DrawingPage />} />
             <Route path="/guess" element={<GuessingPage />} />
             <Route path="/wait" element={<WaitingPage />} />
