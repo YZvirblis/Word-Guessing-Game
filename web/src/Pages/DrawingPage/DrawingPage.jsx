@@ -1,9 +1,17 @@
 import React, { useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
+import socketController from "../../utils/SocketIO";
+import { advance } from "../../slices/stage.slice";
+import { useNavigate } from "react-router-dom";
+import Score from "../../components/Score";
 
-function DrawingPage(match) {
+function DrawingPage() {
+  const stage = useSelector((state) => state.stage.value);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const chosenWord = useSelector((state) => state.word.value);
   const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
   const [mouseDown, setMouseDown] = useState(false);
@@ -11,6 +19,7 @@ function DrawingPage(match) {
   const contextRef = useRef(null);
 
   useEffect(() => {
+    console.log("STAGE: ", stage);
     if (canvasRef.current) {
       contextRef.current = canvasRef.current.getContext("2d");
     }
@@ -37,7 +46,6 @@ function DrawingPage(match) {
   const onMouseDown = (e) => {
     setLastPosition({ x: e.pageX, y: e.pageY });
     setMouseDown(true);
-    console.log(mouseDown, lastPosition);
   };
 
   const onMouseUp = () => {
@@ -57,9 +65,16 @@ function DrawingPage(match) {
     );
   };
 
-  const proceed = () => {
-    console.log("advance");
+  const proceed = async () => {
+    const image = canvasRef.current.toDataURL("image/png");
+    const blob = await (await fetch(image)).blob();
+    const blobURL = URL.createObjectURL(blob);
+
+    socketController.emitBlobURL(blobURL);
+    dispatch(advance(3));
+    navigate("/wait", { replace: true });
   };
+
   return (
     <div className="canvas-container">
       <canvas
@@ -87,11 +102,14 @@ function DrawingPage(match) {
           justifyContent: "center",
         }}
       >
-        <h1 className="draw-title">Draw the word you chose!</h1>
+        <h1 className="draw-title">
+          Draw the word you chose! ({chosenWord.value})
+        </h1>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <button className="button" onClick={clear}>
             CLEAR
           </button>
+          <Score />
           <button className="button" onClick={proceed}>
             PROCEED
           </button>

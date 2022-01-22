@@ -7,11 +7,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import stageReducer from "./slices/stage.slice";
 import wordReducer from "./slices/word.slice";
+import blobReducer from "./slices/blob.slice";
+import pointsReducer from "./slices/points.slice";
 
 const store = configureStore({
   reducer: {
-    stage: stageReducer,
     word: wordReducer,
+    blob: blobReducer,
+    points: pointsReducer,
+    stage: stageReducer,
   },
 });
 

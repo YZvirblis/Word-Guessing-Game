@@ -5,7 +5,9 @@ export const stageSlice = createSlice({
   initialState: { value: 0 },
   reducers: {
     advance: (state, action) => {
+      console.log("ACTION PAYLOAD: ", action.payload);
       state.value = action.payload;
+      console.log("STATE VALUE: ", state.value);
     },
   },
 });

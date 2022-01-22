@@ -6,21 +6,24 @@ const PORT = 3001;
 
 io.on("connection", (socket) => {
   socket.on("join", (room) => {
+    console.log("JOINN");
     userJoin(socket.id, room);
     const roomUsers = getUserByRoom(room);
     if (roomUsers.length >= 2) {
-      console.log("two players joined");
       io.emit("joined", true);
     }
   });
   socket.on("advance", (stage) => {
-    console.log("advancing stage");
-    io.emit("advance", stage);
+    socket.broadcast.emit("advance", stage);
   });
-  socket.on("word-choose", (word, stage) => {
-    console.log("CHOSEN WORD: ", word + " " + stage);
-    io.emit("word-choose", word);
-    io.emit("advance", stage);
+  socket.on("word-choose", (word) => {
+    io.emit("word-choose", { value: word.value, difficulty: word.difficulty });
+  });
+  socket.on("blob", (url) => {
+    io.emit("blob", url);
+  });
+  socket.on("points", (points) => {
+    io.emit("points", points);
   });
 });
 

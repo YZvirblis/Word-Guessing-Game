@@ -7,20 +7,24 @@ import WelcomePage from "./Pages/WelcomePage/WelcomePage";
 import WordChoose from "./Pages/WordChoose/WordChoose";
 import "./Style.css";
 import { v4 } from "uuid";
+import { SocketContext, socket } from "./utils/SocketIO";
 
 function App() {
   const room = v4();
-
   return (
-    <Router>
-      <Routes>
-        <Route path={`/choose`} element={<WordChoose />} />
-        <Route path="/draw:word" element={<DrawingPage />} />
-        <Route path="/guess" element={<GuessingPage />} />
-        <Route path="/wait" element={<WaitingPage />} />
-        <Route exact path="/" element={<WelcomePage room={room} />} />
-      </Routes>
-    </Router>
+    <SocketContext.Provider value={socket}>
+      <div>
+        <Router>
+          <Routes>
+            <Route path={`/choose`} element={<WordChoose />} />
+            <Route path="/draw" element={<DrawingPage />} />
+            <Route path="/guess" element={<GuessingPage />} />
+            <Route path="/wait" element={<WaitingPage />} />
+            <Route exact path="/" element={<WelcomePage room={room} />} />
+          </Routes>
+        </Router>
+      </div>
+    </SocketContext.Provider>
   );
 }
 

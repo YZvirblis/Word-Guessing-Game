@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { advance } from "../../slices/stage.slice";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:3001/");
+import socketController from "../../utils/SocketIO";
+import { SocketContext } from "../../utils/SocketIO";
 
 function WelcomePage(params) {
+  const socket = useContext(SocketContext);
   const dispatch = useDispatch();
   const stage = useSelector((state) => state.stage.value);
 
   const [isPlayerJoined, setIsPlayerJoined] = useState(false);
   useEffect(() => {
+    console.log("STAGE: ", stage);
     if (stage === 0) {
+      console.log("CONNECTING");
       socket.emit("connection");
       socket.emit("join", params.room);
       socket.on("joined", (isTwoPlayers) => {
@@ -21,7 +25,7 @@ function WelcomePage(params) {
   }, []);
 
   const handleClick = () => {
-    socket.emit("advance", 1);
+    socketController.advance(1);
     dispatch(advance(1));
   };
 
@@ -33,7 +37,7 @@ function WelcomePage(params) {
         http://localhost:3000/wait/?room=
         {params.room}
       </p>
-      <Link className="link" to={`/choose/?room=${params.room}`}>
+      <Link className="link" to={`/choose`}>
         <button
           onClick={handleClick}
           disabled={!isPlayerJoined}
