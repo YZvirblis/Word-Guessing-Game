@@ -14,7 +14,7 @@ function GuessingPage() {
 
   const proceed = () => {
     socketController.advance(1);
-    if (guess === chosenWord.value) {
+    if (guess.toUpperCase() === chosenWord.value.toUpperCase()) {
       socketController.emitPoints(chosenWord.difficulty);
       // dispatch(setPoints(chosenWord.difficulty));
     }

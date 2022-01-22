@@ -43,7 +43,17 @@ function DrawingPage() {
   );
 
   const onMouseDown = (e) => {
-    setLastPosition({ x: e.pageX, y: e.pageY });
+    if (e.touches) {
+      setLastPosition({
+        x: e.touches[0].pageX,
+        y: e.touches[0].pageY,
+      });
+    } else {
+      setLastPosition({
+        x: e.pageX,
+        y: e.pageY,
+      });
+    }
     setMouseDown(true);
   };
 
@@ -52,7 +62,11 @@ function DrawingPage() {
   };
 
   const onMouseMove = (e) => {
-    draw(e.pageX, e.pageY);
+    if (e.touches) {
+      draw(e.touches[0].pageX, e.touches[0].pageY);
+    } else {
+      draw(e.pageX, e.pageY);
+    }
   };
 
   const clear = () => {
