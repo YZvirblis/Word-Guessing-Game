@@ -16,9 +16,12 @@ const socketController = {
   emitBlobURL: (url) => {
     socket.emit("blob", url);
   },
-  emitPoints: (points) => {
-    console.log("EMITING POINTS: ", points);
-    socket.emit("points", points);
+  emitPoints: (points, totalScore, time) => {
+    socket.emit("points", {
+      points: points,
+      totalScore: totalScore,
+      time: time,
+    });
   },
 };
 

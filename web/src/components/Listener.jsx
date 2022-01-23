@@ -7,8 +7,6 @@ function Listener() {
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
   socket.on("points", (points) => {
-    console.log("DISPATCHING POINTS: ", points);
-    console.log("dispatched");
     dispatch(setPoints(points / 2));
   });
   return null;
